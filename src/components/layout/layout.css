@@ -1,0 +1,39 @@
+.activeColor{
+    background-color: #ffcc00;
+}
+/* Make dropdown button blend with dark navbar */
+#dropdown-basic-button {
+  background-color: #434E78 !important;
+  border: none !important;
+  color: white !important;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+
+/* Dropdown menu styling */
+.dropdown-menu {
+  background-color: #434E78 !important;
+  border: 1px solid #434E78 !important;
+  border-radius: 8px !important;
+  padding: 8px 0;
+}
+
+/* Each dropdown item */
+.dropdown-item {
+  color: #ddd !important;
+  padding: 8px 16px !important;
+  font-size: 14px;
+}
+
+.dropdown-item:hover {
+  background-color: #ffcc00 !important;
+  color: #000 !important; 
+}
+
+/* Active selected item */
+.dropdown-item.active {
+  background-color: #ffcc00 !important;
+  color: #000 !important;
+}
