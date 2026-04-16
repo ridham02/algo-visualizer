@@ -6,34 +6,50 @@ import SortingPage from './components/pages/SortingPage';
 import PathfinderPage from './components/pages/PathfinderPage';
 
 function AppContent() {
-  const normalizePath = (pathname: string) => {
-    if (pathname.startsWith('/pathfinder')) {
+  const normalizePath = (rawPath: string) => {
+    if (rawPath.includes('pathfinder')) {
       return '/pathfinder';
     }
 
     return '/sorting';
   };
 
-  const [currentPath, setCurrentPath] = useState(() =>
-    normalizePath(window.location.pathname)
-  );
+  const getPathFromLocation = () => {
+    const hashPath = window.location.hash.replace(/^#/, '');
+
+    if (hashPath) {
+      return normalizePath(hashPath);
+    }
+
+    return normalizePath(window.location.pathname);
+  };
+
+  const [currentPath, setCurrentPath] = useState(() => getPathFromLocation());
 
   useEffect(() => {
-    const normalizedPath = normalizePath(window.location.pathname);
+    const normalizedPath = getPathFromLocation();
 
-    if (window.location.pathname !== normalizedPath) {
-      window.history.replaceState({}, '', normalizedPath);
+    if (window.location.hash !== `#${normalizedPath}`) {
+      window.history.replaceState(
+        {},
+        '',
+        `${window.location.pathname}#${normalizedPath}`
+      );
     }
 
     setCurrentPath(normalizedPath);
 
-    const handlePopState = () => {
-      setCurrentPath(normalizePath(window.location.pathname));
+    const syncPath = () => {
+      setCurrentPath(getPathFromLocation());
     };
 
-    window.addEventListener('popstate', handlePopState);
+    window.addEventListener('popstate', syncPath);
+    window.addEventListener('hashchange', syncPath);
 
-    return () => window.removeEventListener('popstate', handlePopState);
+    return () => {
+      window.removeEventListener('popstate', syncPath);
+      window.removeEventListener('hashchange', syncPath);
+    };
   }, []);
 
   const handleNavigate = (nextPath: string) => {
@@ -43,7 +59,11 @@ function AppContent() {
       return;
     }
 
-    window.history.pushState({}, '', normalizedPath);
+    window.history.pushState(
+      {},
+      '',
+      `${window.location.pathname}#${normalizedPath}`
+    );
     setCurrentPath(normalizedPath);
   };
 

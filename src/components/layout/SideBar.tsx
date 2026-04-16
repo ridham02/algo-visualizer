@@ -14,7 +14,7 @@ export default function Sidebar({ currentPath, onNavigate }: SidebarProps) {
       className="d-flex flex-column flex-shrink-0 p-3 text-white sidebar-shell"
       style={{ width: "260px", backgroundColor: "#434E78" }}>
       <a
-        href="/sorting"
+        href="#/sorting"
         onClick={(event) => {
           event.preventDefault();
           onNavigate("/sorting");
