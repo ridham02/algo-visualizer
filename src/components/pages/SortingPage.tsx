@@ -2,6 +2,7 @@ import { Form } from "react-bootstrap";
 import Slider from "@mui/material/Slider";
 import { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
+import { useSidebarInfo } from "../layout/SidebarInfoContext";
 import { generateArray } from "../../utils/generateArray";
 import { sortingAlgorithms } from "../sorting-algo";
 import { SortCancelledError } from "../sorting-algo/helpers";
@@ -46,7 +47,10 @@ const PrettoSlider = styled(Slider)({
   },
 });
 
+const SIDEBAR_SOURCE = "sorting-page";
+
 export default function SortingPage() {
+  const { setSidebarInfo, clearSidebarInfo } = useSidebarInfo();
   const [arraySize, setArraySize] = useState<number>(5);
   const [algorithm, setAlgorithm] = useState<string>("bubble");
   const [array, setArray] = useState<number[]>([]);
@@ -110,9 +114,31 @@ export default function SortingPage() {
 
   const algorithmDetails = sortingAlgorithms[algorithm];
 
+  useEffect(() => {
+    if (!algorithmDetails) {
+      return;
+    }
+
+    setSidebarInfo(SIDEBAR_SOURCE, "Sorting Details", [
+      { label: "Algorithm", value: algorithmDetails.label },
+      { label: "Array Size", value: String(arraySize) },
+      { label: "Time", value: algorithmDetails.timeComplexity.worst },
+      { label: "Space", value: algorithmDetails.spaceComplexity },
+      { label: "Status", value: isSorting ? "Sorting..." : "Ready" },
+    ]);
+
+    return () => clearSidebarInfo(SIDEBAR_SOURCE);
+  }, [
+    algorithmDetails,
+    arraySize,
+    clearSidebarInfo,
+    isSorting,
+    setSidebarInfo,
+  ]);
+
   return (
-    <>
-      <div>
+    <div className="page-shell">
+      <div className="page-toolbar">
         <div
           className="container d-flex align-items-center p-4"
           style={{ width: "100%", backgroundColor: "#434E78" }}
@@ -154,25 +180,7 @@ export default function SortingPage() {
           </div>
         </div>
       </div>
-      <div className="visualizer-wrapper">
-        {algorithmDetails && (
-          <div className="complexity-inline">
-            <span>
-              Algorithm: <strong>{algorithmDetails.label}</strong>
-            </span>
-            <span>
-              Size: <strong>{arraySize}</strong>
-            </span>
-            <span>
-              Time:{" "}
-              <strong>{algorithmDetails.timeComplexity.worst}</strong>
-            </span>
-            <span>
-              Space: <strong>{algorithmDetails.spaceComplexity}</strong>
-            </span>
-          </div>
-        )}
-
+      <div className="visualizer-wrapper sorting-visualizer-wrapper">
         <div className="array-container">
           {array.map((value, idx) => {
             let barClass = "array-bar";
@@ -193,6 +201,6 @@ export default function SortingPage() {
           })}
         </div>
       </div>
-    </>
+    </div>
   );
 }

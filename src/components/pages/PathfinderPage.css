@@ -1,0 +1,141 @@
+.page-shell {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-toolbar {
+  flex-shrink: 0;
+}
+
+.custom-select {
+  background-color: #434e78 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-weight: 500;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M1.5 5.5l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px;
+}
+
+.custom-select:focus {
+  box-shadow: none !important;
+  outline: none !important;
+  border: 1px solid #ffcc00 !important;
+}
+
+.custom-select option {
+  background-color: #434e78;
+  color: white;
+}
+
+.custom-select option:checked {
+  background-color: #ffcc00 !important;
+  color: #000 !important;
+}
+
+.visualizer-wrapper {
+  padding: 16px 24px 24px;
+  background-color: #1e1e2f;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.pathfinder-button {
+  width: 100%;
+}
+
+.secondary-button {
+  border-color: rgba(255, 255, 255, 0.35) !important;
+}
+
+.pathfinder-legend {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  color: #d8d8e6;
+  flex-shrink: 0;
+}
+
+.pathfinder-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.legend-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.pathfinder-grid-shell {
+  background-color: #252540;
+  border-radius: 14px;
+  padding: 14px;
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.35);
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+.pathfinder-grid {
+  display: grid;
+  gap: 2px;
+  width: 100%;
+  height: 100%;
+}
+
+.grid-node {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 4px;
+  background-color: #384164;
+  transition:
+    transform 0.12s ease,
+    background-color 0.18s ease;
+}
+
+.grid-node:hover {
+  transform: scale(1.02);
+}
+
+.start-node {
+  background-color: #4caf50;
+}
+
+.end-node {
+  background-color: #e97f4a;
+}
+
+.wall-node {
+  background-color: #10101a;
+}
+
+.visited-node {
+  background-color: #4aa3ff;
+}
+
+.path-node {
+  background-color: #ffcc00;
+}
+
+@media (max-width: 992px) {
+  .pathfinder-grid-shell {
+    padding: 12px;
+  }
+}

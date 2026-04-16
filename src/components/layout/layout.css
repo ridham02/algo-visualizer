@@ -1,3 +1,44 @@
+.sidebar-shell {
+  min-height: 100vh;
+  align-self: stretch;
+}
+
+.sidebar-info-panel {
+  background-color: rgba(17, 23, 44, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 12px;
+  color: #d8d8e6;
+}
+
+.sidebar-info-title {
+  color: #ffcc00;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.sidebar-info-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.sidebar-info-row:last-child {
+  margin-bottom: 0;
+}
+
+.sidebar-info-row strong {
+  color: #fff;
+}
+
+.sidebar-nav-button {
+  width: 100%;
+  border: none;
+  text-align: left;
+}
+
 .activeColor{
     background-color: #ffcc00;
 }
